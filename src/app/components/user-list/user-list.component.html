@@ -1,0 +1,27 @@
+<main class="chat-container">
+  <div class="input-area">
+    <input
+      type="text"
+      [(ngModel)]="userName"
+      placeholder="Digite seu nome"
+      class="name-input"
+    />
+    <button (click)="addUser()" class="add-button">Adicionar</button>
+  </div>
+
+  <ng-container *ngIf="usersList as users">
+    <ul *ngIf="users.length > 0; else noUsers" class="user-list">
+      <li *ngFor="let user of users" class="user-item">
+        <div class="user-name">{{ user.name }}</div>
+        <div class="user-actions">
+          <button (click)="removeUser(user.id)" class="delete-button" aria-label="Remover usuário">🗑️</button>
+          <button (click)="editUser(user.id)" class="edit-button" aria-label="Editar usuário">📝</button>
+        </div>
+      </li>
+    </ul>
+  </ng-container>
+
+  <ng-template #noUsers>
+    <p class="no-users-message">Nenhum usuário adicionado ainda.</p>
+  </ng-template>
+</main>
