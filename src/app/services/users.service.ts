@@ -5,9 +5,17 @@ import { User } from '../models/user-interface';
 export class UsersService {
   users: User[] = [];
 
-  addUser(user: User) {
+  addUser(user: User): boolean {
+    const nameExists = this.users.some(
+      (u) => u.name.toLowerCase() === user.name.toLowerCase()
+    );
+    if (nameExists) {
+      alert('Nome já existe. Por favor, escolha outro nome.');
+      return false;
+    }
     this.users.push(user);
     localStorage.setItem('users', JSON.stringify(this.users));
+    return true;
   }
 
   removeUser(userId: number) {
@@ -19,7 +27,7 @@ export class UsersService {
   getUsers(): User[] {
     return this.users;
   }
-  
+
   getUserById(userId: number): User | undefined {
     return this.users.find((user) => user.id === userId);
   }
@@ -30,9 +38,4 @@ export class UsersService {
       this.users[userIndex] = { ...this.users[userIndex], ...updatedUser };
     }
   }
-
-  getUsersCount(): number {
-    return this.users.length;
-  }
-
 }

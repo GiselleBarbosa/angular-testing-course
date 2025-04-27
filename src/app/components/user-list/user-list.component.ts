@@ -13,7 +13,7 @@ import { User } from '../../models/user-interface';
   styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent implements OnInit {
-  private usersService = inject(UsersService);
+  public usersService = inject(UsersService);
 
   userName!: string;
   usersList: User[] = [];
@@ -23,18 +23,21 @@ export class UserListComponent implements OnInit {
   }
 
   loadUsers() {
-    if (localStorage.getItem('users')) {
-      this.usersService.users = JSON.parse(localStorage.getItem('users')!);
+    const usersData = localStorage.getItem('users');
+    if (usersData) {
+      const parsedUsers = JSON.parse(usersData);
+      this.usersList = parsedUsers;
+      this.usersService.users = parsedUsers;
     }
-    this.usersList = this.usersService.getUsers();
   }
 
-  addUser() {
-    this.usersService.addUser({ id: Math.random(), name: this.userName });
-
-    this.loadUsers();
-
-    this.userName = '';
+  addUser(): void {
+    if (this.userName.trim()) {
+      const newUser: User = { id: Date.now(), name: this.userName };
+      this.usersService.addUser(newUser); 
+      this.loadUsers(); 
+      this.userName = '';
+    }
   }
 
   removeUser(userId: number) {
