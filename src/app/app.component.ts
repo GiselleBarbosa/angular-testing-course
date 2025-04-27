@@ -12,30 +12,4 @@ import { User } from './models/user-interface';
   styleUrls: ['./app.component.scss'],
   providers: [UsersService],
 })
-export class AppComponent {
-  constructor(private usersService: UsersService) {}
-
-  addUser(user: User) {
-    this.usersService.addUser(user);
-  }
-
-  removeUser(userId: number) {
-    this.usersService.removeUser(userId);
-  }
-
-  getUsers() {
-    return this.usersService.getUsers();
-  }
-
-  getUserById(userId: number) {
-    return this.usersService.getUserById(userId);
-  }
-
-  updateUser(userId: number, updatedUser: User) {
-    this.usersService.updateUser(userId, updatedUser);
-  }
-
-  getUsersCount() {
-    return this.usersService.getUsersCount();
-  }
-}
+export class AppComponent {}
