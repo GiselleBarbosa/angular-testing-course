@@ -11,7 +11,7 @@ export class ProductsService {
 
   removeProduct(productId: string) {
     const updateProducts = this.products.filter(
-      (product) => product.id !== product.id
+      (product) => product.id !== productId
     );
     this.products = updateProducts;
   }
