@@ -1,8 +1,11 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ProductInterface } from '../models/product-interface';
+import { UtilsService } from './utils.service';
 
 @Injectable()
 export class ProductsService {
+  utilsService = inject(UtilsService);
+
   products: ProductInterface[] = [];
 
   addProduct(product: ProductInterface) {
@@ -14,5 +17,9 @@ export class ProductsService {
       (product) => product.id !== productId
     );
     this.products = updateProducts;
+  }
+
+  getProductNames(): string[] {
+    return this.utilsService.pluck(this.products, 'name');
   }
 }
