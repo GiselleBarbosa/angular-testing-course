@@ -1,0 +1,56 @@
+import { TestBed } from '@angular/core/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
+import { ApiService } from './api.service';
+import { TagInterface } from '../models/tag.interface';
+
+describe('ApiService', () => {
+  let apiService: ApiService;
+  let httpTestingController: HttpTestingController;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [ApiService],
+      imports: [HttpClientTestingModule],
+    });
+
+    apiService = TestBed.inject(ApiService);
+    httpTestingController = TestBed.inject(HttpTestingController);
+  });
+
+  afterAll(() => {
+    httpTestingController.verify();
+  });
+
+  it('deve criar o serviço', () => {
+    expect(apiService).toBeTruthy();
+  });
+
+  describe('#getTags', () => {
+    it('deve retornar uma lista de tags', () => {
+      let tags: TagInterface[] | undefined = [];
+
+      apiService.getTags().subscribe((response) => {
+        tags = response;
+      });
+      const req = httpTestingController.expectOne(`${apiService.apiUrl}/tags`);
+      req.flush([{ id: 1, name: 'foo' }]);
+      expect(tags).toEqual([{ id: 1, name: 'foo' }]);
+    });
+  });
+
+  describe('#getTags', () => {
+    it('deve criar uma tag', () => {
+      let tag: TagInterface | undefined;
+
+      apiService.createTag('foo').subscribe((response) => {
+        tag = response;
+      });
+      const req = httpTestingController.expectOne(`${apiService.apiUrl}/tags`);
+      req.flush({ id: 1, name: 'foo' });
+      expect(tag).toEqual({ id: 1, name: 'foo' });
+    });
+  });
+});
