@@ -5,6 +5,7 @@ import {
 } from '@angular/common/http/testing';
 import { ApiService } from './api.service';
 import { TagInterface } from '../models/tag.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 describe('ApiService', () => {
   let apiService: ApiService;
@@ -63,6 +64,32 @@ describe('ApiService', () => {
       req.flush({ id: 1, name: 'foo' });
       expect(req.request.method).toEqual('POST');
       expect(req.request.body).toEqual({ name: 'foo' });
+    });
+
+    it('deve lançar um erro se a requisação falhar', () => {
+      let actualError: HttpErrorResponse | undefined;
+
+      apiService.createTag('foo').subscribe({
+        next: () => {
+          fail('A requisição não deveria ter sido bem-sucedida');
+        },
+        error: (err) => {
+          actualError = err;
+        },
+      });
+      const req = httpTestingController.expectOne(`${apiService.apiUrl}/tags`);
+      req.flush('Server error', {
+        status: 422,
+        statusText: 'Unprocessable Entity',
+      });
+
+      if (!actualError) {
+        throw new Error('Error precisa ser definido');
+      }
+
+      expect(actualError.status).toEqual(422);
+      expect(actualError.statusText).toEqual('Unprocessable Entity');
+      expect(actualError).toBeTruthy();
     });
   });
 });
