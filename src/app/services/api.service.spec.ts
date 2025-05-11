@@ -41,7 +41,7 @@ describe('ApiService', () => {
     });
   });
 
-  describe('#getTags', () => {
+  describe('#createTag', () => {
     it('deve criar uma tag', () => {
       let tag: TagInterface | undefined;
 
@@ -51,6 +51,18 @@ describe('ApiService', () => {
       const req = httpTestingController.expectOne(`${apiService.apiUrl}/tags`);
       req.flush({ id: 1, name: 'foo' });
       expect(tag).toEqual({ id: 1, name: 'foo' });
+    });
+
+    it('deve passar o body corretamente', () => {
+      let tag: TagInterface | undefined;
+
+      apiService.createTag('foo').subscribe((response) => {
+        tag = response;
+      });
+      const req = httpTestingController.expectOne(`${apiService.apiUrl}/tags`);
+      req.flush({ id: 1, name: 'foo' });
+      expect(req.request.method).toEqual('POST');
+      expect(req.request.body).toEqual({ name: 'foo' });
     });
   });
 });
