@@ -1,25 +1,19 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ProductInterface } from '../models/product-interface';
-import { UtilsService } from './utils.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class ProductsService {
-  utilsService = inject(UtilsService);
-
-  products: ProductInterface[] = [];
+  products$ = new BehaviorSubject<ProductInterface[]>([]);
 
   addProduct(product: ProductInterface) {
-    this.products = [...this.products, product];
+    this.products$.next([...this.products$.getValue(), product]);
   }
 
   removeProduct(productId: string) {
-    const updateProducts = this.products.filter(
-      (product) => product.id !== productId
-    );
-    this.products = updateProducts;
-  }
-
-  getProductNames(): string[] {
-    return this.utilsService.pluck(this.products, 'name');
+    const updateProducts = this.products$
+      .getValue()
+      .filter((product) => product.id !== productId);
+    this.products$.next(updateProducts);
   }
 }
