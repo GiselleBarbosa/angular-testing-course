@@ -2,22 +2,19 @@ import { TestBed, inject } from '@angular/core/testing';
 import { User } from '../types/user-interface';
 import { UsersService } from './users.service';
 
-describe('Serviço: Users', () => {
+describe('#Serviço: Users', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [UsersService],
     });
   });
 
-  it('#deve criar o serviço', inject(
-    [UsersService],
-    (service: UsersService) => {
-      expect(service).toBeTruthy();
-    }
-  ));
+  it('deve criar o serviço', inject([UsersService], (service: UsersService) => {
+    expect(service).toBeTruthy();
+  }));
 
   describe('#addUser', () => {
-    it('#deveria adicionar um usuário ao array de usuários e ao local storage se o nome não existir', inject(
+    it('deveria adicionar um usuário ao array de usuários e ao local storage se o nome não existir', inject(
       [UsersService],
       (service: UsersService) => {
         const initialLength = service.users.length;
@@ -32,7 +29,7 @@ describe('Serviço: Users', () => {
       }
     ));
 
-    it('#não deveria adicionar um usuário se o nome já existir (ignorando caixa alta/baixa)', inject(
+    it('não deveria adicionar um usuário se o nome já existir (ignorando caixa alta/baixa)', inject(
       [UsersService],
       (service: UsersService) => {
         const existingUser: User = { id: 1, name: 'Existing User' };
@@ -51,7 +48,7 @@ describe('Serviço: Users', () => {
       }
     ));
 
-    it('#deveria adicionar um usuário com nome diferente', inject(
+    it('deveria adicionar um usuário com nome diferente', inject(
       [UsersService],
       (service: UsersService) => {
         const existingUser: User = { id: 1, name: 'Existing User' };
@@ -72,7 +69,7 @@ describe('Serviço: Users', () => {
   });
 
   describe('#removeUser', () => {
-    it('#deve remover um usuário do array de usuários e atualizar o local storage', inject(
+    it('deve remover um usuario do array de usuários e atualizar o local storage', inject(
       [UsersService],
       (service: UsersService) => {
         const user1: User = { id: 1, name: 'User 1' };
@@ -89,7 +86,7 @@ describe('Serviço: Users', () => {
       }
     ));
 
-    it('#não deve alterar o array de usuários se o id do usuário não existir', inject(
+    it('não deve alterar o array de usuários se o id do usuário não existir', inject(
       [UsersService],
       (service: UsersService) => {
         const initialLength = service.users.length;
@@ -103,7 +100,7 @@ describe('Serviço: Users', () => {
   });
 
   describe('#getUsers', () => {
-    it('#deve retornar o array de usuários atual', inject(
+    it('deve retornar o array de usuários atual', inject(
       [UsersService],
       (service: UsersService) => {
         const user1: User = { id: 1, name: 'User 1' };
@@ -114,7 +111,7 @@ describe('Serviço: Users', () => {
       }
     ));
 
-    it('#deve retornar um array vazio se não houver usuários', inject(
+    it('deve retornar um array vazio se não houver usuários', inject(
       [UsersService],
       (service: UsersService) => {
         service.users = [];
@@ -125,7 +122,7 @@ describe('Serviço: Users', () => {
   });
 
   describe('#getUserById', () => {
-    it('#deve retornar o usuário com o id fornecido', inject(
+    it('deve retornar o usuário com o id fornecido', inject(
       [UsersService],
       (service: UsersService) => {
         const user: User = { id: 1, name: 'Test User' };
@@ -135,7 +132,7 @@ describe('Serviço: Users', () => {
       }
     ));
 
-    it('#deve retornar undefined se nenhum usuário com o id fornecido existir', inject(
+    it('deve retornar undefined se nenhum usuário com o id fornecido existir', inject(
       [UsersService],
       (service: UsersService) => {
         const user: User = { id: 1, name: 'Test User' };
@@ -147,7 +144,7 @@ describe('Serviço: Users', () => {
   });
 
   describe('#updateUser', () => {
-    it('#deve atualizar o usuário com o id fornecido', inject(
+    it('deve atualizar o usuário com o id fornecido', inject(
       [UsersService],
       (service: UsersService) => {
         const initialUser: User = { id: 1, name: 'Test User' };
@@ -158,7 +155,7 @@ describe('Serviço: Users', () => {
       }
     ));
 
-    it('#não deve atualizar nenhum usuário se o id não existir', inject(
+    it('não deve atualizar nenhum usuário se o id não existir', inject(
       [UsersService],
       (service: UsersService) => {
         const initialUser: User = { id: 1, name: 'Test User' };
