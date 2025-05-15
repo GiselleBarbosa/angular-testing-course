@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { ProductInterface } from '../models/product-interface';
+import { ProductInterface } from '../types/product-interface';
 import { ProductsService } from './products.service';
 
 describe('#Service: Products', () => {

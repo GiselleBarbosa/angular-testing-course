@@ -1,8 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { UsersService } from '../../services/users.service';
 import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { User } from '../../models/user-interface';
+import { UsersService } from '../../shared/services/users.service';
+import { User } from '../../shared/types/user-interface';
 
 @Component({
   selector: 'app-user-list',
@@ -34,8 +34,8 @@ export class UserListComponent implements OnInit {
   addUser(): void {
     if (this.userName.trim()) {
       const newUser: User = { id: Date.now(), name: this.userName };
-      this.usersService.addUser(newUser); 
-      this.loadUsers(); 
+      this.usersService.addUser(newUser);
+      this.loadUsers();
       this.userName = '';
     }
   }

@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsersService } from './services/users.service';
-import { UserListComponent } from './components/user-list/user-list.component';
-import { User } from './models/user-interface';
+import { Component } from '@angular/core';
+import { UsersService } from './shared/services/users.service';
+import { UserListComponent } from './views/user-list/user-list.component';
 
 @Component({
   selector: 'app-root',

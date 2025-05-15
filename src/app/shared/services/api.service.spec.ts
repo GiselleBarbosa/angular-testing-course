@@ -1,11 +1,11 @@
-import { TestBed } from '@angular/core/testing';
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { TagInterface } from '../types/tag.interface';
 import { ApiService } from './api.service';
-import { TagInterface } from '../models/tag.interface';
-import { HttpErrorResponse } from '@angular/common/http';
 
 describe('ApiService', () => {
   let apiService: ApiService;

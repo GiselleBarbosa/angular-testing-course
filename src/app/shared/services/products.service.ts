@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ProductInterface } from '../models/product-interface';
 import { BehaviorSubject } from 'rxjs';
+import { ProductInterface } from '../types/product-interface';
 
 @Injectable()
 export class ProductsService {

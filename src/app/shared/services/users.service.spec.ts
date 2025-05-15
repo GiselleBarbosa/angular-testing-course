@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
+import { User } from '../types/user-interface';
 import { UsersService } from './users.service';
-import { User } from '../models/user-interface';
 
 describe('Serviço: Users', () => {
   beforeEach(() => {
@@ -16,60 +16,60 @@ describe('Serviço: Users', () => {
     }
   ));
 
-   describe('#addUser', () => {
-     it('#deveria adicionar um usuário ao array de usuários e ao local storage se o nome não existir', inject(
-       [UsersService],
-       (service: UsersService) => {
-         const initialLength = service.users.length;
-         const user: User = { id: 1, name: 'Test User' };
-         const result = service.addUser(user);
-         expect(result).toBeTruthy();
-         expect(service.users.length).toBe(initialLength + 1);
-         expect(service.users).toContain(user);
-         expect(localStorage.getItem('users')).toBe(
-           JSON.stringify(service.users)
-         );
-       }
-     ));
+  describe('#addUser', () => {
+    it('#deveria adicionar um usuário ao array de usuários e ao local storage se o nome não existir', inject(
+      [UsersService],
+      (service: UsersService) => {
+        const initialLength = service.users.length;
+        const user: User = { id: 1, name: 'Test User' };
+        const result = service.addUser(user);
+        expect(result).toBeTruthy();
+        expect(service.users.length).toBe(initialLength + 1);
+        expect(service.users).toContain(user);
+        expect(localStorage.getItem('users')).toBe(
+          JSON.stringify(service.users)
+        );
+      }
+    ));
 
-     it('#não deveria adicionar um usuário se o nome já existir (ignorando caixa alta/baixa)', inject(
-       [UsersService],
-       (service: UsersService) => {
-         const existingUser: User = { id: 1, name: 'Existing User' };
-         service.users = [existingUser];
-         localStorage.setItem('users', JSON.stringify(service.users));
-         const initialLength = service.users.length;
-         const newUserSameName: User = { id: 2, name: 'existing user' }; // Mesmo nome, caixa diferente
-         const result = service.addUser(newUserSameName);
-         expect(result).toBeFalsy();
-         expect(service.users.length).toBe(initialLength);
-         expect(service.users).toContain(existingUser);
-         expect(service.users).not.toContain(newUserSameName);
-         expect(localStorage.getItem('users')).toBe(
-           JSON.stringify(service.users)
-         ); // Local storage não deve mudar
-       }
-     ));
+    it('#não deveria adicionar um usuário se o nome já existir (ignorando caixa alta/baixa)', inject(
+      [UsersService],
+      (service: UsersService) => {
+        const existingUser: User = { id: 1, name: 'Existing User' };
+        service.users = [existingUser];
+        localStorage.setItem('users', JSON.stringify(service.users));
+        const initialLength = service.users.length;
+        const newUserSameName: User = { id: 2, name: 'existing user' }; // Mesmo nome, caixa diferente
+        const result = service.addUser(newUserSameName);
+        expect(result).toBeFalsy();
+        expect(service.users.length).toBe(initialLength);
+        expect(service.users).toContain(existingUser);
+        expect(service.users).not.toContain(newUserSameName);
+        expect(localStorage.getItem('users')).toBe(
+          JSON.stringify(service.users)
+        ); // Local storage não deve mudar
+      }
+    ));
 
-     it('#deveria adicionar um usuário com nome diferente', inject(
-       [UsersService],
-       (service: UsersService) => {
-         const existingUser: User = { id: 1, name: 'Existing User' };
-         service.users = [existingUser];
-         localStorage.setItem('users', JSON.stringify(service.users));
-         const initialLength = service.users.length;
-         const newUserDifferentName: User = { id: 2, name: 'New User' };
-         const result = service.addUser(newUserDifferentName);
-         expect(result).toBeTruthy();
-         expect(service.users.length).toBe(initialLength + 1);
-         expect(service.users).toContain(existingUser);
-         expect(service.users).toContain(newUserDifferentName);
-         expect(localStorage.getItem('users')).toBe(
-           JSON.stringify(service.users)
-         ); // Local storage deve ser atualizado
-       }
-     ));
-   });
+    it('#deveria adicionar um usuário com nome diferente', inject(
+      [UsersService],
+      (service: UsersService) => {
+        const existingUser: User = { id: 1, name: 'Existing User' };
+        service.users = [existingUser];
+        localStorage.setItem('users', JSON.stringify(service.users));
+        const initialLength = service.users.length;
+        const newUserDifferentName: User = { id: 2, name: 'New User' };
+        const result = service.addUser(newUserDifferentName);
+        expect(result).toBeTruthy();
+        expect(service.users.length).toBe(initialLength + 1);
+        expect(service.users).toContain(existingUser);
+        expect(service.users).toContain(newUserDifferentName);
+        expect(localStorage.getItem('users')).toBe(
+          JSON.stringify(service.users)
+        ); // Local storage deve ser atualizado
+      }
+    ));
+  });
 
   describe('#removeUser', () => {
     it('#deve remover um usuário do array de usuários e atualizar o local storage', inject(
