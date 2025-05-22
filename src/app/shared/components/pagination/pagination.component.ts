@@ -1,13 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'mc-pagination',
   templateUrl: './pagination.component.html',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [CommonModule],
 })
 export class PaginationComponent implements OnInit {
   @Input() total: number = 0;
