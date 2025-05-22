@@ -7,10 +7,16 @@ import { first } from 'rxjs';
 describe('PaginationComponent', () => {
   let component: PaginationComponent;
   let fixture: ComponentFixture<PaginationComponent>;
+
+  const mockUtilService = {
+    range: () => {
+      return [1, 2, 3, 4, 5];
+    },
+  };
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [PaginationComponent],
-      providers: [UtilsService],
+      providers: [{ provide: UtilsService, useValue: mockUtilService }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PaginationComponent);
@@ -21,11 +27,11 @@ describe('PaginationComponent', () => {
     fixture.detectChanges();
   });
 
-  it('creates component', () => {
+  it('deve criar o componente', () => {
     expect(component).toBeTruthy();
   });
 
-  it('renders correct pagination', () => {
+  it('deve renderizar a paginação corretamente', () => {
     const pageContainers = fixture.debugElement.queryAll(
       By.css('[data-testid="page-container"]')
     );
@@ -34,7 +40,7 @@ describe('PaginationComponent', () => {
     expect(pageContainers[0].nativeElement.textContent).toContain('1');
   });
 
-  it('should emit a clicked page', () => {
+  it('deve emitir a página clicada', () => {
     const pageContainers = fixture.debugElement.queryAll(
       By.css('[data-testid="page-container"]')
     );
