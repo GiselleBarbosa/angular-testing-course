@@ -9,7 +9,7 @@ import { FilterEnum } from '../types/filter.enum';
 describe('TodosService', () => {
   let todosService: TodosService;
   let httpTestingController: HttpTestingController;
-  const baseUrl = 'http://localhost:3004/todos';
+  const baseUrl = 'http://localhost:3000/todos';
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],

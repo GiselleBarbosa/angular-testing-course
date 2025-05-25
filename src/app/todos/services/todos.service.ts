@@ -11,7 +11,7 @@ export class TodosService {
   httpClient = inject(HttpClient);
   todosSig = signal<TodoInterface[]>([]);
   filterSig = signal<FilterEnum>(FilterEnum.all);
-  apiBaseUrl = 'http://localhost:3004/todos';
+  apiBaseUrl = 'http://localhost:3000/todos';
 
   changeFilter(filterName: FilterEnum): void {
     this.filterSig.set(filterName);
