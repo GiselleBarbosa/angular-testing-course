@@ -23,25 +23,25 @@ describe('TodosService', () => {
     httpTestingController.verify();
   });
 
-  it('deve criar o serviço', () => {
+  it('creates service', () => {
     expect(todosService).toBeTruthy();
   });
 
-  it('deve definir os dados iniciais', () => {
+  it('sets initial data', () => {
     expect(todosService.apiBaseUrl).toEqual(baseUrl);
     expect(todosService.todosSig()).toEqual([]);
     expect(todosService.filterSig()).toEqual(FilterEnum.all);
   });
 
-  describe('#changeFilter', () => {
-    it('deve alterar o filtro', () => {
+  describe('changeFilter', () => {
+    it('changes the filter', () => {
       todosService.changeFilter(FilterEnum.active);
       expect(todosService.filterSig()).toEqual(FilterEnum.active);
     });
   });
 
-  describe('#getTodos', () => {
-    it('deve obter os dados corretos', () => {
+  describe('getTodos', () => {
+    it('gets correct data', () => {
       todosService.getTodos();
       const req = httpTestingController.expectOne(baseUrl);
       req.flush([{ text: 'foo', isCompleted: true, id: '1' }]);
@@ -51,8 +51,8 @@ describe('TodosService', () => {
     });
   });
 
-  describe('#addTodo', () => {
-    it('deve criar uma tarefa', () => {
+  describe('addTodo', () => {
+    it('creates a todo', () => {
       todosService.addTodo('foo');
       const req = httpTestingController.expectOne(baseUrl);
       req.flush({ text: 'foo', isCompleted: true, id: '1' });
@@ -62,8 +62,8 @@ describe('TodosService', () => {
     });
   });
 
-  describe('#changeTodo', () => {
-    it('deve atualizar uma tarefa', () => {
+  describe('changeTodo', () => {
+    it('updates a todo', () => {
       todosService.todosSig.set([{ text: 'foo', isCompleted: true, id: '1' }]);
       todosService.changeTodo('1', 'bar');
       const req = httpTestingController.expectOne(`${baseUrl}/1`);
@@ -74,8 +74,8 @@ describe('TodosService', () => {
     });
   });
 
-  describe('#removeTodo', () => {
-    it('deve remover uma tarefa', () => {
+  describe('removeTodo', () => {
+    it('removes a todo', () => {
       todosService.todosSig.set([{ text: 'foo', isCompleted: true, id: '1' }]);
       todosService.removeTodo('1');
       const req = httpTestingController.expectOne(`${baseUrl}/1`);
@@ -84,8 +84,8 @@ describe('TodosService', () => {
     });
   });
 
-  describe('#toggleTodo', () => {
-    it('deve alternar o estado de uma tarefa', () => {
+  describe('toggleTodo', () => {
+    it('toggles a todo', () => {
       todosService.todosSig.set([{ text: 'foo', isCompleted: false, id: '1' }]);
       todosService.toggleTodo('1');
       const req = httpTestingController.expectOne(`${baseUrl}/1`);
@@ -96,8 +96,8 @@ describe('TodosService', () => {
     });
   });
 
-  describe('#toggleAll', () => {
-    it('deve alternar todas as tarefas', () => {
+  describe('toggleAll', () => {
+    it('toggles all todos', () => {
       todosService.todosSig.set([
         { text: 'foo', isCompleted: false, id: '1' },
         { text: 'bar', isCompleted: false, id: '2' },
